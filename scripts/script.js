@@ -1,6 +1,6 @@
 // alert("Hello")
 
-let num = Math.floor(Math.random()*100);
+let num = Math.floor(Math.random()*100)+1;
 
 let success = false;
 let clue = check(num);
@@ -12,6 +12,11 @@ for(let i = 0; i<10 ; i++){
         let ele = document.querySelector(".success");
         ele.classList.add("successStyle");  // a style class from css
         ele.textContent = "Hurray!!! You Win!!";
+        // let alt = true;
+        setInterval(()=>{
+            ele.classList.toggle("successStyle");
+            ele.classList.toggle("successGold");            
+        },300);
         success = true;
         break;
      }
