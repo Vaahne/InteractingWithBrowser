@@ -1,35 +1,37 @@
 alert("Welcome to Number Guessing Game!!!");
 
-let number = Math.floor(Math.random()*100)+1;
+let number = Math.floor(Math.random()*98)+1;
 let hints = [];
-
+let yourGuess,msg;
 let successStatus = false;
 
 getClue(number);
 startingPoint(number);
 
 function startingPoint(num){
-    let yourGuess = prompt("Guess a Number below 100?");    
-   
+    yourGuess = prompt("Guess a Number below 100?");    
+    
     for(let i = 0; i<10 ; i++){
+        if(isNaN(yourGuess)) checkNum();
         if(yourGuess == num){
             success();        
             successStatus = true;
             break;
         }
         if(i > 7)   alert(`Almost there!!!! ${10-i} guesses left`);
-        if(i< hints.length){ 
+    
+        if(i< hints.length)
             yourGuess = prompt(`${hints[i]}`);
-        }else{
-             yourGuess =(yourGuess > num)? prompt(`Guess a lesser number`):prompt (`Guess a bigger number`);
-        }        
+        else
+            yourGuess =(yourGuess > num)? prompt(`Guess a lesser number`):prompt (`Guess a bigger number`);
+                
     } 
 
     if(yourGuess == num && !successStatus){ // if last guess is correct
         success();
         successStatus = true;
    }
-    // If User didnt guess the number , It will display the number
+    // If User didnt guess the number correct , It will display the number
     if(!successStatus){
         let ele = document.querySelector(".success");
         ele.classList.add("tryAgain"); // a style class from css
@@ -39,6 +41,13 @@ function startingPoint(num){
         pE2.textContent = `The Number is ${num}`;
         ele.appendChild(pEl);
         ele.appendChild(pE2);
+    }
+}
+
+function checkNum(){
+    yourGuess = prompt("Please Enter a Valid Number < 100");
+    if(isNaN(yourGuess)){
+        setTimeout(checkNum,0);
     }
 }
 // Generates a Clue
